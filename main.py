@@ -11,4 +11,7 @@ from project_9 import Project9
 app = Project9()
 
 if __name__ == '__main__':
-    app.start()
+    try:
+        app.start()
+    except KeyboardInterrupt:
+        print("9\n9\n9\n9\n9\n9\n9")
