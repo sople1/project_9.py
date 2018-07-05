@@ -7,6 +7,11 @@ utility for project 9
 
 
 def clear():
+    """
+    clear cmd/term
+
+    :return: void
+    """
     import os
     import sys
 

@@ -7,6 +7,12 @@ view for project 9
 
 
 def intro():
+    """
+    view for intro
+    print only
+
+    :return: void
+    """
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n     - 9 move project -\n\n\n\n\n\n\n\n start!\n\n - plese Any key & Enter key -", end="")
 
 
