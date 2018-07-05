@@ -16,7 +16,7 @@ def intro():
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n     - 9 move project -\n\n\n\n\n\n\n\n start!\n\n - plese Any key & Enter key -", end="")
 
 
-def board(is_wall=False, x=9, y=9):
+def screen(board="", is_wall=False):
     print("\n\n\n\n\n\n\n\n\n\n")
 
     if is_wall:
@@ -24,11 +24,7 @@ def board(is_wall=False, x=9, y=9):
     else:
         print("\n\n")
 
-    for i in range(x):
-        list = []
-        for j in range(y):
-            list.append("0")
-        print(" ".join(list))
+    print(board)
 
     print("------------------------------------------------------")
     print(" move up -  'w'")
@@ -37,7 +33,6 @@ def board(is_wall=False, x=9, y=9):
     print(" move left -  'a'")
     print("   AND Enter")
     print("  End program is 'n' key", end="")
-
 
 if __name__ == '__main__':
     raise Exception("please run main py")

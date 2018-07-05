@@ -8,6 +8,15 @@ from . import util, view
 
 
 class Project9:
+    _size = {
+        'x': 9,
+        'y': 9
+    }
+    _pos = {
+        'x': 0,
+        'y': 0
+    }
+
     def __init__(self, size_x=9, size_y=9):
         self.set_size(size_x, size_y)
 
@@ -21,16 +30,6 @@ class Project9:
             continue_game = True
             while continue_game:
                 continue_game = self.run_game()
-
-    def set_size(self, size_x, size_y):
-        """
-        set playground for 9
-
-        :param size_x: size for x
-        :param size_y: size for y
-        :return: self
-        """
-        return self
 
     def run_intro(self):
         """
@@ -49,7 +48,8 @@ class Project9:
 
     def run_game(self):
         util.clear()
-        view.board()
+        board = self.make_board()
+        view.screen(board)
 
         arg = ''
         while arg == '':
@@ -57,6 +57,41 @@ class Project9:
 
         return True
 
+    def make_board(self):
+        rows = []
+
+        for i in range(self._size['x']):
+            row = []
+            for j in range(self._size['y']):
+                if i == self._pos['x'] and j == self._pos['y']:
+                    row.append("9")
+                else:
+                    row.append("0")
+
+            rows.append(" ".join(row))
+
+        return "\n".join(rows)
+
+    def set_size(self, size_x, size_y):
+        """
+        set playground for 9
+
+        :param size_x: size for x
+        :param size_y: size for y
+        :return: self
+        """
+        import math
+
+        self._size = {
+            'x': size_x,
+            'y': size_y,
+        }
+        self._pos = {
+            'x': math.ceil((size_x-1)/2),
+            'y': math.ceil((size_y-1)/2),
+        }
+
+        return self
 
 
 if __name__ == '__main__':
