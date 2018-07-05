@@ -18,7 +18,9 @@ class Project9:
         :return: void
         """
         if self.run_intro():
-            self.run_game()
+            continue_game = True
+            while continue_game:
+                continue_game = self.run_game()
 
     def set_size(self, size_x, size_y):
         """
@@ -32,6 +34,7 @@ class Project9:
 
     def run_intro(self):
         """
+        show intro and wait until user's response
 
         :return:
         """
@@ -45,7 +48,15 @@ class Project9:
         return True
 
     def run_game(self):
-        pass
+        util.clear()
+        view.board()
+
+        arg = ''
+        while arg == '':
+            arg = input()
+
+        return True
+
 
 
 if __name__ == '__main__':
