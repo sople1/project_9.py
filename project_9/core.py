@@ -16,6 +16,7 @@ class Project9:
         'x': 0,
         'y': 0
     }
+    _wall_touched = False
 
     def __init__(self, size_x=9, size_y=9):
         self.set_size(size_x, size_y)
@@ -29,15 +30,16 @@ class Project9:
         if self.run_intro():
             continue_game = True
             while continue_game:
-                continue_game = self.run_game()
+                continue_game = self.run_board()
 
     def run_intro(self):
         """
         show intro and wait until user's response
 
-        :return:
+        :return: bool for next step
         """
         util.clear()
+
         view.intro()
 
         arg = ''
@@ -46,18 +48,30 @@ class Project9:
 
         return True
 
-    def run_game(self):
+    def run_board(self):
+        """
+        show board and wait until user's response
+
+        :return: bool for next step (exit)
+        """
         util.clear()
+
         board = self.make_board()
-        view.screen(board)
+        view.screen(board, self._wall_touched)
+        self._wall_touched = False  # init
 
         arg = ''
         while arg == '':
-            arg = input()
+            arg = input('')
 
-        return True
+        return self._parse_arg(arg[0])
 
     def make_board(self):
+        """
+        only make board with pre-defined variables
+
+        :return: string : board string
+        """
         rows = []
 
         for i in range(self._size['x']):
@@ -92,6 +106,37 @@ class Project9:
         }
 
         return self
+
+    def _parse_arg(self, arg):
+        """
+        move 9 or close
+
+        :param arg: only one letter
+        :return: bool for go or stop
+        """
+        arg = arg.lower()
+
+        if arg == 'n':  # End program
+            return False
+
+        if arg == 'w':  # move up
+            self._pos['x'] -= 1
+        if arg == 's':  # move down
+            self._pos['x'] += 1
+        if arg == 'a':  # move left
+            self._pos['y'] -= 1
+        if arg == 'd':  # move right
+            self._pos['y'] += 1
+
+        for k in ['x', 'y']:
+            if self._pos[k] < 0:
+                self._pos[k] = 0
+                self._wall_touched = True
+            elif self._pos[k] >= self._size[k]:
+                self._pos[k] = self._size[k] - 1
+                self._wall_touched = True
+
+        return True
 
 
 if __name__ == '__main__':

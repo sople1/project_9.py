@@ -14,4 +14,4 @@ if __name__ == '__main__':
     try:
         app.start()
     except KeyboardInterrupt:
-        print("9\n9\n9\n9\n9\n9\n9")
+        print("\n9\n9\n9\n9\n9\n9\n9")

@@ -17,12 +17,12 @@ def intro():
 
 
 def screen(board="", is_wall=False):
-    print("\n\n\n\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n\n\n\n\n\n")
 
     if is_wall:
         print("-it's wall, don't move\n")
     else:
-        print("\n\n")
+        print("\n")
 
     print(board)
 
