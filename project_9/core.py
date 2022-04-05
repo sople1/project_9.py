@@ -6,6 +6,13 @@ core for project 9
 """
 from . import util, view
 
+# 각기맞는 방향의값을 딕셔너리를 정의합니다.
+move = {
+    'w': [-1, 0],
+    's': [1, 0],
+    'a': [0, -1],
+    'd': [0, 1],
+}
 
 class Project9:
     _size = {
@@ -72,19 +79,10 @@ class Project9:
 
         :return: string : board string
         """
-        rows = []
 
-        for i in range(self._size['x']):
-            row = []
-            for j in range(self._size['y']):
-                if i == self._pos['x'] and j == self._pos['y']:
-                    row.append("9")
-                else:
-                    row.append("0")
-
-            rows.append(" ".join(row))
-
-        return "\n".join(rows)
+        rows = [['0'] * self._size['x'] for _ in range(self._size['y'])]
+        rows[self._pos['x']][self._pos['y']] = "9"
+        return "\n".join([" ".join(row) for row in rows])
 
     def set_size(self, size_x, size_y):
         """
@@ -119,21 +117,18 @@ class Project9:
         if arg == 'n':  # End program
             return False
 
-        if arg == 'w':  # move up
-            self._pos['x'] -= 1
-        if arg == 's':  # move down
-            self._pos['x'] += 1
-        if arg == 'a':  # move left
-            self._pos['y'] -= 1
-        if arg == 'd':  # move right
-            self._pos['y'] += 1
+        # 각 키에맞는 값을 가져옵니다. 저장된 값 w,a,s,d 가 아니라면 target_move는 값이 없어 if문을 통과하지 못합니다.
+        target_move = move.get(arg)
+        if target_move:  # move up
+            dx = self._pos['x'] + target_move[0]
+            dy = self._pos['y'] + target_move[1]
 
-        for k in ['x', 'y']:
-            if self._pos[k] < 0:
-                self._pos[k] = 0
-                self._wall_touched = True
-            elif self._pos[k] >= self._size[k]:
-                self._pos[k] = self._size[k] - 1
+            # target_move에서 통과하지 못햇을경우 움직이지 못하므로 기존값과 동일하여 실행될 이유가 없다고 생각합니다.
+            # 또한 해당값 움직여야할 값이 다음 비교식을 통과하지 못하면 다음 이동이 벽을 넘어가거나 혹은 현재 벽을 넘어가 있다는 가정이 있습니다.
+            if 0 <= dx < self._size['x'] and 0 <= dy < self._size['y']:
+                self._pos['x'] = dx
+                self._pos['y'] = dy
+            else:
                 self._wall_touched = True
 
         return True
